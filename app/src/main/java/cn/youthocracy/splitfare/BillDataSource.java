@@ -211,7 +211,7 @@ public class BillDataSource {
         db.insert(personTableName,null,values);
     }
 
-    public void removePerson(int PersonID){
+    public void removePerson(int PersonID,int CollectionID){
         String[] arg = {String.valueOf(PersonID)};
         String[] billcol = {"id"};
         String[] arg2 = {""};
@@ -219,6 +219,7 @@ public class BillDataSource {
         while(cursor.moveToNext()){
             arg2[0] = cursor.getString(0);
             db.delete(billTableName,"id = ?",arg2);
+            calculateCollectionTotal(CollectionID);
         }
         db.delete(personTableName,"id = ?",arg);
     }
@@ -268,7 +269,22 @@ public class BillDataSource {
          return names;}
  }
 
-    private int[] getPersonIds(int CollectionID){
+    public String getPayerName(int PayerID){
+        String[] col = {"PersonName"};
+        String[] Args = {""};
+        Args[0] = String.valueOf(PayerID);
+        Cursor cursor = db.query(personTableName,col,"id = ?",Args,null,null,"id DESC");
+        if(cursor.getCount()==0){
+            return null;
+        }
+        else{
+            cursor.moveToNext();
+            Log.d("payer name",cursor.getString(0));
+            return cursor.getString(0);
+            }
+    }
+
+    public int[] getPersonIds(int CollectionID){
         String[] col = {"id"};
         String[] Args = {""};
         Args[0] = String.valueOf(CollectionID);
@@ -293,7 +309,7 @@ public double[] getEachPaid(int CollectionID){
     String[] Args = {""};
     String[] col = {"Amount"};
     for(int i=0;i<Ids.length;i++) {
-        Args[0] = String.valueOf(i);
+        Args[0] = String.valueOf(Ids[i]);
         Cursor cursor = db.query(billTableName, col, "PayerID = ?", Args, null, null, "id DESC");
         double sum = 0;
         {

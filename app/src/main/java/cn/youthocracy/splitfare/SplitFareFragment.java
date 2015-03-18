@@ -85,6 +85,17 @@ public class SplitFareFragment extends Fragment {
         double[] eachPaid = BDATA.getEachPaid(CollectionID);
         SplitFare split = new SplitFare(names,eachPaid);
         tv.setText(split.getTrans());
+        final TextView backfare = (TextView) rootView.findViewById(R.id.backfare);
+        backfare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CollectionOverviewFragment OverviewFrag = new CollectionOverviewFragment();
+                OverviewFrag.setArguments(arg);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container,OverviewFrag)
+                        .commit();
+            }
+        });
         return rootView;
     }
 

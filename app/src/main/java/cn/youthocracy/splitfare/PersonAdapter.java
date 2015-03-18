@@ -50,8 +50,8 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         TextView name = (TextView) CommentView.findViewById(R.id.personitem_name);
         TextView personRemove = (TextView) CommentView.findViewById(R.id.person_item_remove);
         //Assign the appropriate data from our alert object above
-        //id.setText(String.valueOf(position+1));
-        id.setText(String.valueOf(al.getPersonID()));
+       id.setText(String.valueOf(position+1));
+       // id.setText(String.valueOf(al.getPersonID()));
 
         name.setText(String.valueOf(al.getPersonName()));
         final Bundle arg = new Bundle();
@@ -66,7 +66,7 @@ public class PersonAdapter extends ArrayAdapter<Person> {
                     }catch(SQLException e){
                         Log.d("PersonAdapter SQL Exception", e.toString());
                     }
-                    BData.removePerson(al.getPersonID());
+                    BData.removePerson(al.getPersonID(),al.getCollectionID());
                     FragmentActivity activity = (FragmentActivity) getContext();
                     EditPersonsFragment editFrag = new EditPersonsFragment();
                     editFrag.setArguments(arg);

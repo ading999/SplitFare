@@ -25,11 +25,14 @@ public class SplitFare {
     public SplitFare(String[] names, double[] eachPaid) {
         NumOfPpl = names.length;
         Sum = getSum(eachPaid);
+
         Average = Sum / NumOfPpl;
         Difference = getDifference(eachPaid);
-        pairs = getPairs(names, eachPaid);
+        pairs = getPairs(names, Difference);
         Arrays.sort(pairs);
-        resultSet = Split(pairs);
+
+
+           resultSet = Split(pairs);
         TransactionSet = getTranscations(resultSet);
     }
 
@@ -44,7 +47,7 @@ public class SplitFare {
             Log.d("OldMin",String.valueOf(oldMin));
             double oldMax = arr[NumOfPpl-1].value;
             arr[0].value = ((oldMax+oldMin)>0.01)?0:(oldMax+oldMin);
-            double payment = ((oldMax+oldMin)>0.01)?Math.abs(oldMin):oldMax;
+            double payment = roundOff(((oldMax+oldMin)>0.01)?Math.abs(oldMin):oldMax);
             arr[0].addTransaction(arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
             Log.d("transaction",arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
             arr[NumOfPpl-1].value = ((oldMax+oldMin)>0.01)?(oldMax+oldMin):0;
@@ -65,12 +68,17 @@ public class SplitFare {
         double[] d = new double[arr.length];
         for (int i = 0; i < NumOfPpl; i++) {
             d[i] = arr[i] - Average;
+            Log.d("average",String.valueOf(Average));
+            Log.d("difference", String.valueOf(d[i]));
         }
         return d;
     }
 
     private Pair[] getPairs(String[] names, double[] difference) {
         Log.d("difference length",String.valueOf(difference.length));
+        Log.d("difference",String.valueOf(difference[0]));
+        Log.d("difference",String.valueOf(difference[2]));
+
         Pair[] par  = new Pair[difference.length];
         Log.d("par length",String.valueOf(par.length));
         for (int i = 0; i < NumOfPpl; i++) {

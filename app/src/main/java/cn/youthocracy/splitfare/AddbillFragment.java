@@ -1,7 +1,9 @@
 package cn.youthocracy.splitfare;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.sql.SQLException;
@@ -34,6 +37,8 @@ public class AddbillFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private int CollectionID;
     private Bundle arg;
+    private int idOfPayer;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -93,14 +98,41 @@ public class AddbillFragment extends Fragment {
         catch(SQLException e){
             Log.d("BData exception", e.toString());
         }
-       finishadd.setOnClickListener(new View.OnClickListener() {
+
+payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus){
+            final CharSequence names[] = BData.getPersonNames(CollectionID);
+            final int[] ids = BData.getPersonIds(CollectionID);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Choose a person");
+            builder.setItems(names, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // the user clicked on colors[which]
+                idOfPayer = ids[which];
+                payerID.setText(names[which]);
+                }
+            });
+            builder.show();
+        }
+    }
+});
+
+        finishadd.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-
+                if(isNumeric(amount.getText().toString())){
                b.setAmount(Double.parseDouble(amount.getText().toString()));
+                }
+               else{
+                    b.setAmount(0);
+                }
                b.setBillDescription(description.getText().toString());
-               b.setPayerID(Integer.parseInt(payerID.getText().toString()));
-               Log.d("add bill fragment payerID",payerID.getText().toString());
+               b.setPayerID(idOfPayer);
+               Log.d("add bill fragment payerID",String.valueOf(idOfPayer));
                b.setCollectionID(CollectionID);
                BData.addBill(b);
                BData.close();
@@ -169,6 +201,20 @@ public class AddbillFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
 

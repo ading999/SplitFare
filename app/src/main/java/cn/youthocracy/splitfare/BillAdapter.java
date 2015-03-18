@@ -69,26 +69,28 @@ public class BillAdapter extends ArrayAdapter<Bill> {
         TextView Description = (TextView) CommentView.findViewById(R.id.billitemdescription);
         final TextView Amount = (TextView) CommentView.findViewById(R.id.billitemamount);
         TextView ID = (TextView) CommentView.findViewById(R.id.billitemid);
-        TextView Payer = (TextView) CommentView.findViewById(R.id.billitempayer);
+        final TextView Payer = (TextView) CommentView.findViewById(R.id.billitempayer);
         TextView billRemove = (TextView) CommentView.findViewById(R.id.bill_item_remove);
         //Assign the appropriate data from our alert object above
         Description.setText(al.getBillDescription());
-       // ID.setText(String.valueOf(position+1));
-        ID.setText(String.valueOf(al.getBillID()));
+        ID.setText(String.valueOf(position+1));
+        //ID.setText(String.valueOf(al.getBillID()));
+        final BillDataSource BData = new BillDataSource(getContext());
+        try{
+            BData.open();
+
+        }catch(SQLException e){
+            Log.d("BillAdapter sql error",e.toString());
+        }
+        Payer.setText("Paid by: "+BData.getPayerName(al.getPayerID()));
 
         Amount.setText("Amount: $"+String.valueOf(al.getAmount()));
-        Payer.setText("Paid by: "+String.valueOf(al.getPayerID()));
        // Payer.setText(al.getPayerID());
         billRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillDataSource BData = new BillDataSource(getContext());
-                try{
-                    BData.open();
 
-                }catch(SQLException e){
-                   Log.d("BillAdapter sql error",e.toString());
-                }
+
                 BData.removeBill(al.getBillID(),al.getCollectionID());
                 Bundle arg = new Bundle();
                 arg.putInt("CollectionID",al.getCollectionID());
