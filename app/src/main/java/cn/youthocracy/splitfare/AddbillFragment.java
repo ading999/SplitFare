@@ -107,7 +107,7 @@ payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             final int[] ids = BData.getPersonIds(CollectionID);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Choose a person");
+            builder.setTitle("Choose a payer");
             builder.setItems(names, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

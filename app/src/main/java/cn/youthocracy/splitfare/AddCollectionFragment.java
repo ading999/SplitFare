@@ -1,6 +1,8 @@
 package cn.youthocracy.splitfare;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -80,24 +82,25 @@ public class AddCollectionFragment extends Fragment {
         finishadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillDataSource BData = new BillDataSource(getActivity());
-                try{
-                BData.open();
+                if(!collectionname.getText().toString().isEmpty()){
 
-                }
-                catch(SQLException e){
-                    Log.d("add collection exception", e.toString());
-                }
-                FareCollection c = new FareCollection();
-                c.setCollectionName(collectionname.getText().toString());
-                int CollectionID = BData.addCollection(c);
-                EditPersonsFragment editPersonsFrag = new EditPersonsFragment();
-                Bundle arg = new Bundle();
-                arg.putInt("CollectionID",CollectionID);
-                Log.d("Bundle collectionid add collection",String.valueOf(CollectionID));
-                editPersonsFrag.setArguments(arg);
-                getFragmentManager().beginTransaction().replace(R.id.container, editPersonsFrag).commit();
+                    BillDataSource BData = new BillDataSource(getActivity());
+                    try {
+                        BData.open();
 
+                    } catch (SQLException e) {
+                        Log.d("add collection exception", e.toString());
+                    }
+                    FareCollection c = new FareCollection();
+                    c.setCollectionName(collectionname.getText().toString());
+                    int CollectionID = BData.addCollection(c);
+                    EditPersonsFragment editPersonsFrag = new EditPersonsFragment();
+                    Bundle arg = new Bundle();
+                    arg.putInt("CollectionID", CollectionID);
+                    Log.d("Bundle collectionid add collection", String.valueOf(CollectionID));
+                    editPersonsFrag.setArguments(arg);
+                    getFragmentManager().beginTransaction().replace(R.id.container, editPersonsFrag).commit();
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +151,20 @@ public class AddCollectionFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private void alert(String message){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Error:")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }

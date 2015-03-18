@@ -128,6 +128,7 @@ public class EditPersonsFragment extends Fragment {
         addBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!personname.getText().toString().isEmpty()){
                 Person p = new Person();
                 p.setCollectionID(CollectionID);
                 p.setPersonName(personname.getText().toString());
@@ -138,7 +139,7 @@ public class EditPersonsFragment extends Fragment {
                 PersonsFrag.setArguments(arg);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, PersonsFrag)
-                        .commit();            }
+                        .commit();   }}
         });
         return rootView;
     }
