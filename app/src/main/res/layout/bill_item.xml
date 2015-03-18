@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent" android:layout_height="60dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/billitemid"
+        android:textSize="50dp"
+        android:text="1"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Bill Description"
+            android:id="@+id/billitemdescription"
+            android:textSize="25dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/billitemamount"
+            android:text="Amount: $1510"
+            android:layout_weight="0.5"
+            android:textSize="15dp"/>
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/billitempayer"
+                android:layout_weight="0.5"
+                android:text="PaidBy:"
+                android:textSize="15dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:text="x"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:id="@+id/bill_item_remove"
+       />
+</LinearLayout>

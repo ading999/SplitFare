@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent" android:layout_height="60dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_weight="1"
+    android:id="@+id/collectionclick">
+<TextView
+    android:layout_width="60dp"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:textSize="50dp"
+    android:text="1"
+    android:id = "@+id/main_collectionid"
+    />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="North Carolina Trip"
+            android:id = "@+id/main_collectionname"
+            android:textSize="25dp"/>
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="total: $1510"
+            android:id = "@+id/main_collectiontotal"
+            android:textSize="15dp"/>
+        </LinearLayout>
+</LinearLayout>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:text="x"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:id="@+id/collection_item_remove"
+        />
+</LinearLayout>
+
