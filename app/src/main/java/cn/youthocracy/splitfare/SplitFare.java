@@ -75,9 +75,6 @@ public class SplitFare {
     }
 
     private Pair[] getPairs(String[] names, double[] difference) {
-        Log.d("difference length",String.valueOf(difference.length));
-        Log.d("difference",String.valueOf(difference[0]));
-        Log.d("difference",String.valueOf(difference[2]));
 
         Pair[] par  = new Pair[difference.length];
         Log.d("par length",String.valueOf(par.length));

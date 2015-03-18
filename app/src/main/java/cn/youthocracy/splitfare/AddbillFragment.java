@@ -124,12 +124,10 @@ payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
         finishadd.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-                if(isNumeric(amount.getText().toString())){
+                if(!description.getText().toString().isEmpty()){
+                    if(isNumeric(amount.getText().toString())){
+                        if(!payerID.getText().toString().isEmpty()){
                b.setAmount(Double.parseDouble(amount.getText().toString()));
-                }
-               else{
-                    b.setAmount(0);
-                }
                b.setBillDescription(description.getText().toString());
                b.setPayerID(idOfPayer);
                Log.d("add bill fragment payerID",String.valueOf(idOfPayer));
@@ -142,7 +140,17 @@ payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                OverviewFrag.setArguments(arg);
               getFragmentManager().beginTransaction()
                       .replace(R.id.container,OverviewFrag)
-                       .commit();
+                       .commit();}else{
+                            alert("Please select a payer");
+                        }
+
+                    }
+                    else{
+                        alert("Please enter a bill amount");
+                    }
+                }else{
+                alert("Please enter a bill description");
+                }
 
            }
        });
@@ -217,5 +225,17 @@ payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
         return true;
     }
 
+    private void alert(String message){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Error:")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
+                        // continue with delete
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 }

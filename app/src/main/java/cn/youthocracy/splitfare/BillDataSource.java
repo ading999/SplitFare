@@ -1,7 +1,9 @@
 package cn.youthocracy.splitfare;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -125,7 +127,8 @@ public class BillDataSource {
         double total=0;
         //    Log.d("cursor",String.valueOf(cursor.getCount()));
         if(cursor.getCount()==0){
-            return null;
+            updateCollectionTotal(0,CollectionID);
+            return "0";
         }
         else{
             while (cursor.moveToNext() ) {
@@ -305,6 +308,7 @@ public class BillDataSource {
 
 public double[] getEachPaid(int CollectionID){
     int[] Ids = getPersonIds(CollectionID);
+    if(Ids!=null){
     double[] eachPaid = new double[Ids.length];
     String[] Args = {""};
     String[] col = {"Amount"};
@@ -320,7 +324,12 @@ public double[] getEachPaid(int CollectionID){
             eachPaid[i] = sum;
         }
     }
-    return eachPaid;
+    return eachPaid;}
+    else{
+        return null;
+    }
 }
+
+
 
 }
