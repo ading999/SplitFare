@@ -1,10 +1,13 @@
 package cn.youthocracy.splitfare;
 
+import android.util.Log;
+
 import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Justice on 3/13/15.
@@ -17,7 +20,7 @@ public class SplitFare {
     private Pair[] pairs;
     private double err = 0;
     private Pair[] resultSet;
-    private String[] TransactionSet;
+    private List<String> TransactionSet;
 
     public SplitFare(String[] names, double[] eachPaid) {
         NumOfPpl = names.length;
@@ -32,18 +35,18 @@ public class SplitFare {
 
 
     private Pair[] Split(Pair[] arr) {
-        for (int i = 0; i < NumOfPpl; i++) {
-            err += arr[i].value;
-        }
-        if (Math.abs(err - 0) < 0.00000001) {
+
+        if ((Math.abs(arr[0].value) < 0.01)&&(Math.abs(arr[arr.length-1].value)<0.01)) {
             return arr;
         } else {
             //nested function
             double oldMin = arr[0].value;
+            Log.d("OldMin",String.valueOf(oldMin));
             double oldMax = arr[NumOfPpl-1].value;
             arr[0].value = ((oldMax+oldMin)>0.01)?0:(oldMax+oldMin);
-            double payment = roundOff(((oldMax+oldMin)>0.01)?Math.abs(oldMin):oldMax);
-            arr[0].addTransaction(arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+payment);
+            double payment = ((oldMax+oldMin)>0.01)?Math.abs(oldMin):oldMax;
+            arr[0].addTransaction(arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
+            Log.d("transaction",arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
             arr[NumOfPpl-1].value = ((oldMax+oldMin)>0.01)?(oldMax+oldMin):0;
             Arrays.sort(arr);
             return Split(arr);
@@ -59,7 +62,7 @@ public class SplitFare {
     }
 
     private double[] getDifference(double[] arr) {
-        double[] d = {};
+        double[] d = new double[arr.length];
         for (int i = 0; i < NumOfPpl; i++) {
             d[i] = arr[i] - Average;
         }
@@ -67,30 +70,39 @@ public class SplitFare {
     }
 
     private Pair[] getPairs(String[] names, double[] difference) {
+        Log.d("difference length",String.valueOf(difference.length));
+        Pair[] par  = new Pair[difference.length];
+        Log.d("par length",String.valueOf(par.length));
         for (int i = 0; i < NumOfPpl; i++) {
-            pairs[i].name = names[i];
-            pairs[i].value = difference[i];
+            Log.d("name pairs", names[i]);
+            par[i] = new Pair(names[i],difference[i]);
         }
-        return pairs;
+        return par;
     }
 
     private double roundOff(double a) {
         return Math.round(a * 100.0) / 100.0;
     }
 
-    private String[] getTranscations(Pair[] rSet) {
-        String[] subset = null;
-        String[] tset = null;
-        int Counter = 0;
+    private List<String> getTranscations(Pair[] rSet) {
+        List<String> subset = new ArrayList<>();
+        List<String> tset = new ArrayList<String>();
         for (int i = 0; i < NumOfPpl; i++) {
             subset = rSet[i].getTransaction();
-            if (subset != null) {
-                for (int n = 0; n < subset.length; n++) {
-                    tset[Counter] = subset[n];
-                    Counter += 1;
+                for (int n = 0; n < subset.size(); n++) {
+                    tset.add(subset.get(n));
                 }
-            }
+
         }
         return tset;
     }
+
+    public String getTrans(){
+        String str="";
+        for(int i=0;i<TransactionSet.size();i++){
+            str +=(TransactionSet.get(i)+ "\n");
+        }
+        return str;
+    }
+
 }

@@ -249,4 +249,62 @@ public class BillDataSource {
         return tmp;
     }
 
+ public String[] getPersonNames(int CollectionID){
+     String[] col = {"PersonName"};
+     String[] Args = {""};
+     Args[0] = String.valueOf(CollectionID);
+     Cursor cursor = db.query(personTableName,col,"CollectionID = ?",Args,null,null,"id DESC");
+         Log.d("cursor",String.valueOf(cursor.getCount()));
+     String[] names = new String[cursor.getCount()];
+     if(cursor.getCount()==0){
+         return null;
+     }
+     else{
+        for(int i=0;i<cursor.getCount();i++){
+            cursor.moveToNext();
+            names[i]=cursor.getString(0);
+            Log.d("name",names[i]);
+        }
+         return names;}
+ }
+
+    private int[] getPersonIds(int CollectionID){
+        String[] col = {"id"};
+        String[] Args = {""};
+        Args[0] = String.valueOf(CollectionID);
+        Cursor cursor = db.query(personTableName,col,"CollectionID = ?",Args,null,null,"id DESC");
+        int[] Ids = new int[cursor.getCount()];
+        //    Log.d("cursor",String.valueOf(cursor.getCount()));
+        if(cursor.getCount()==0){
+            return null;
+        }
+        else{
+            for(int i=0;i<cursor.getCount();i++){
+                cursor.moveToNext();
+                Ids[i]=cursor.getInt(0);
+                Log.d("name",String.valueOf(Ids[i]));
+            }
+            return Ids;}
+    }
+
+public double[] getEachPaid(int CollectionID){
+    int[] Ids = getPersonIds(CollectionID);
+    double[] eachPaid = new double[Ids.length];
+    String[] Args = {""};
+    String[] col = {"Amount"};
+    for(int i=0;i<Ids.length;i++) {
+        Args[0] = String.valueOf(i);
+        Cursor cursor = db.query(billTableName, col, "PayerID = ?", Args, null, null, "id DESC");
+        double sum = 0;
+        {
+            for (int b = 0; b < cursor.getCount(); b++) {
+                cursor.moveToNext();
+                sum += cursor.getDouble(0);
+            }
+            eachPaid[i] = sum;
+        }
+    }
+    return eachPaid;
+}
+
 }

@@ -1,11 +1,15 @@
 package cn.youthocracy.splitfare;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Justice on 3/13/15.
  */
 public class Pair implements Comparable<Pair> {
-    public String name;
-    public double value;
-    private String[] transaction = null;
+    public String name="";
+    public double value=0;
+    private List<String> transaction = new ArrayList<String>();
 
     public Pair(String name, double value) {
         this.name = name;
@@ -31,16 +35,12 @@ public class Pair implements Comparable<Pair> {
         return Math.round(a * 100.0) / 100.0;
     }
 
-    public String[] getTransaction(){
+    public List<String> getTransaction(){
         return transaction;
     }
 
     public void addTransaction(String str){
-        if(transaction==null){
-            transaction[0]=str;
-        }
-        else {
-            transaction[transaction.length] = str;
-        }
+            transaction.add(str);
+
     }
 }

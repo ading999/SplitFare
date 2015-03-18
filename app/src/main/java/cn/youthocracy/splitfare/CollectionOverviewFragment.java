@@ -135,6 +135,18 @@ public class CollectionOverviewFragment extends Fragment {
                         .commit();
             }
         });
+        final TextView SplitFareButton = (TextView) rootView.findViewById(R.id.splitfarebutton);
+        SplitFareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SplitFareFragment SplitFrag  = new SplitFareFragment();
+                SplitFrag.setArguments(arg);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, SplitFrag)
+                        .commit();
+            }
+        });
+
         return rootView;
            }
 
