@@ -22,12 +22,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
   // Log.d("db onCreate", TABLE_CREATE);
         String TABLE1_CREATE = "CREATE TABLE IF NOT EXISTS Collections(id INTEGER PRIMARY KEY, CollectionName TEXT, CollectionTotal TEXT)";
-    Log.d("table create 1",TABLE1_CREATE);
+  //  Log.d("table create 1",TABLE1_CREATE);
         String TABLE2_CREATE = "CREATE TABLE IF NOT EXISTS Bills(id INTEGER PRIMARY KEY, Description TEXT, Amount TEXT, PayerID INTEGER, CollectionID INTEGER)";
-        Log.d("table create 2",TABLE2_CREATE);
+      //  Log.d("table create 2",TABLE2_CREATE);
 
         String TABLE3_CREATE = "CREATE TABLE IF NOT EXISTS Persons(id INTEGER PRIMARY KEY, PersonName TEXT, CollectionID INTEGER)";
-        Log.d("table create 3",TABLE3_CREATE);
+     //   Log.d("table create 3",TABLE3_CREATE);
 
         db.execSQL(TABLE1_CREATE);
         db.execSQL(TABLE2_CREATE);

@@ -58,7 +58,7 @@ public class CollectionAdapter extends ArrayAdapter<FareCollection> {
         final BillDataSource BData = new BillDataSource(getContext());
         try{BData.open();}
         catch(SQLException e){
-            Log.d("CollectionAdapter SQL Exception",e.toString());
+           // Log.d("CollectionAdapter SQL Exception",e.toString());
         }
         Amount.setText("Total: $"+String.valueOf(al.getCollectionTotal()));
 

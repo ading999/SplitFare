@@ -64,7 +64,7 @@ public class PersonAdapter extends ArrayAdapter<Person> {
                     try {
                         BData.open();
                     }catch(SQLException e){
-                        Log.d("PersonAdapter SQL Exception", e.toString());
+                     //   Log.d("PersonAdapter SQL Exception", e.toString());
                     }
                     BData.removePerson(al.getPersonID(),al.getCollectionID());
                     FragmentActivity activity = (FragmentActivity) getContext();

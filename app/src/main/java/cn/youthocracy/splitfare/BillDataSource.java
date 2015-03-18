@@ -28,9 +28,9 @@ public class BillDataSource {
 
     public void open() throws SQLException{
         db = dbHelper.getWritableDatabase();
-        if(db.isOpen())
-            Log.d("dbopen","db is open");
-            Log.d("version",String.valueOf(db.getVersion()));
+    //    if(db.isOpen())
+           // Log.d("dbopen","db is open");
+          //  Log.d("version",String.valueOf(db.getVersion()));
     }
 
     public void close(){
@@ -54,11 +54,11 @@ public class BillDataSource {
         String[] col = {"id","Description","Amount","PayerID","CollectionID"};
         String[] arg = {""};
         arg[0] = String.valueOf(id);
-        Log.d("getAllBills collectionID",arg[0]);
+      //  Log.d("getAllBills collectionID",arg[0]);
         Cursor cursor = db.query(billTableName,col,"id = ?",arg,null,null,null);
         cursor.moveToNext();
         Bill tmp = new Bill();
-        Log.d("BillDataSource",String.valueOf(tmp.getCollectionID()));
+      //  Log.d("BillDataSource",String.valueOf(tmp.getCollectionID()));
         return tmp;
     }
 
@@ -76,7 +76,7 @@ public class BillDataSource {
         List<Bill> b = new ArrayList<>();
         String[] arg = {""};
         arg[0] = String.valueOf(CollectionID);
-        Log.d("getAllBills collectionID",arg[0]);
+   //     Log.d("getAllBills collectionID",arg[0]);
         Cursor cursor = db.query(billTableName,col,"CollectionID = ?",arg,null,null,"id DESC");
     //    Log.d("cursor",String.valueOf(cursor.getCount()));
         if(cursor.getCount()==0){
@@ -122,7 +122,7 @@ public class BillDataSource {
     private String calculateCollectionTotal(int CollectionID){
         String[] col = {"Amount"};
         String[] arg = {String.valueOf(CollectionID)};
-        Log.d("getAllBills collectionID",arg[0]);
+      //  Log.d("getAllBills collectionID",arg[0]);
         Cursor cursor = db.query(billTableName,col,"CollectionID = ?",arg,null,null,"id DESC");
         double total=0;
         //    Log.d("cursor",String.valueOf(cursor.getCount()));
@@ -142,7 +142,7 @@ public class BillDataSource {
         String[] col = {"CollectionTotal"};
         String[] arg = {""};
         arg[0] = String.valueOf(CollectionID);
-        Log.d("getCollection collectionID",arg[0]);
+      //  Log.d("getCollection collectionID",arg[0]);
         Cursor cursor = db.query(collectionTableName,col,"id = ?",arg,null,null,null);
         cursor.moveToNext();
         return cursor.getString(0);
@@ -152,7 +152,7 @@ public class BillDataSource {
         String[] col = {"id","CollectionName","CollectionTotal"};
         String[] arg = {""};
         arg[0] = String.valueOf(id);
-        Log.d("getCollection collectionID",arg[0]);
+    //    Log.d("getCollection collectionID",arg[0]);
         Cursor cursor = db.query(collectionTableName,col,"id = ?",arg,null,null,null);
         cursor.moveToNext();
         FareCollection tmp = new FareCollection();
@@ -209,8 +209,8 @@ public class BillDataSource {
         ContentValues values = new ContentValues();
         values.put("PersonName",p.getPersonName());
         values.put("CollectionID", p.getCollectionID());
-        Log.d("PersonName",p.getPersonName());
-        Log.d("CollectionID", String.valueOf(p.getCollectionID()));
+     //   Log.d("PersonName",p.getPersonName());
+     //   Log.d("CollectionID", String.valueOf(p.getCollectionID()));
         db.insert(personTableName,null,values);
     }
 
@@ -258,7 +258,7 @@ public class BillDataSource {
      String[] Args = {""};
      Args[0] = String.valueOf(CollectionID);
      Cursor cursor = db.query(personTableName,col,"CollectionID = ?",Args,null,null,"id DESC");
-         Log.d("cursor",String.valueOf(cursor.getCount()));
+    //     Log.d("cursor",String.valueOf(cursor.getCount()));
      String[] names = new String[cursor.getCount()];
      if(cursor.getCount()==0){
          return null;
@@ -267,7 +267,7 @@ public class BillDataSource {
         for(int i=0;i<cursor.getCount();i++){
             cursor.moveToNext();
             names[i]=cursor.getString(0);
-            Log.d("name",names[i]);
+         //   Log.d("name",names[i]);
         }
          return names;}
  }
@@ -282,7 +282,7 @@ public class BillDataSource {
         }
         else{
             cursor.moveToNext();
-            Log.d("payer name",cursor.getString(0));
+          //  Log.d("payer name",cursor.getString(0));
             return cursor.getString(0);
             }
     }
@@ -301,7 +301,7 @@ public class BillDataSource {
             for(int i=0;i<cursor.getCount();i++){
                 cursor.moveToNext();
                 Ids[i]=cursor.getInt(0);
-                Log.d("name",String.valueOf(Ids[i]));
+          //      Log.d("name",String.valueOf(Ids[i]));
             }
             return Ids;}
     }

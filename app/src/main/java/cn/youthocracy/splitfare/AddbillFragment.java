@@ -82,7 +82,7 @@ public class AddbillFragment extends Fragment {
                              Bundle savedInstanceState) {
         arg = getArguments();
         CollectionID = arg.getInt("CollectionID");
-        Log.d("AddBillFrag",String.valueOf(CollectionID));
+       // Log.d("AddBillFrag",String.valueOf(CollectionID));
         View rootView = (View) inflater.inflate(R.layout.collection_addbill,container,false);
         TextView finishadd = (TextView) rootView.findViewById(R.id.finishbill);
         TextView backbill = (TextView) rootView.findViewById(R.id.backbill);
@@ -96,7 +96,7 @@ public class AddbillFragment extends Fragment {
         try{
         BData.open();}
         catch(SQLException e){
-            Log.d("BData exception", e.toString());
+         //   Log.d("BData exception", e.toString());
         }
 
 payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -130,7 +130,7 @@ payerID.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                b.setAmount(Double.parseDouble(amount.getText().toString()));
                b.setBillDescription(description.getText().toString());
                b.setPayerID(idOfPayer);
-               Log.d("add bill fragment payerID",String.valueOf(idOfPayer));
+             //  Log.d("add bill fragment payerID",String.valueOf(idOfPayer));
                b.setCollectionID(CollectionID);
                BData.addBill(b);
                BData.close();

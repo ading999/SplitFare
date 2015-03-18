@@ -89,7 +89,7 @@ public class AddCollectionFragment extends Fragment {
                         BData.open();
 
                     } catch (SQLException e) {
-                        Log.d("add collection exception", e.toString());
+                     //   Log.d("add collection exception", e.toString());
                     }
                     FareCollection c = new FareCollection();
                     c.setCollectionName(collectionname.getText().toString());
@@ -97,7 +97,7 @@ public class AddCollectionFragment extends Fragment {
                     EditPersonsFragment editPersonsFrag = new EditPersonsFragment();
                     Bundle arg = new Bundle();
                     arg.putInt("CollectionID", CollectionID);
-                    Log.d("Bundle collectionid add collection", String.valueOf(CollectionID));
+                //    Log.d("Bundle collectionid add collection", String.valueOf(CollectionID));
                     editPersonsFrag.setArguments(arg);
                     getFragmentManager().beginTransaction().replace(R.id.container, editPersonsFrag).commit();
                 }

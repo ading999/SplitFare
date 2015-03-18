@@ -44,12 +44,12 @@ public class SplitFare {
         } else {
             //nested function
             double oldMin = arr[0].value;
-            Log.d("OldMin",String.valueOf(oldMin));
+        //    Log.d("OldMin",String.valueOf(oldMin));
             double oldMax = arr[NumOfPpl-1].value;
             arr[0].value = ((oldMax+oldMin)>0.01)?0:(oldMax+oldMin);
             double payment = roundOff(((oldMax+oldMin)>0.01)?Math.abs(oldMin):oldMax);
             arr[0].addTransaction(arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
-            Log.d("transaction",arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
+         //   Log.d("transaction",arr[0].name+" pays "+arr[NumOfPpl-1].name+" $"+String.valueOf(payment));
             arr[NumOfPpl-1].value = ((oldMax+oldMin)>0.01)?(oldMax+oldMin):0;
             Arrays.sort(arr);
             return Split(arr);
@@ -68,8 +68,8 @@ public class SplitFare {
         double[] d = new double[arr.length];
         for (int i = 0; i < NumOfPpl; i++) {
             d[i] = arr[i] - Average;
-            Log.d("average",String.valueOf(Average));
-            Log.d("difference", String.valueOf(d[i]));
+         //   Log.d("average",String.valueOf(Average));
+         //   Log.d("difference", String.valueOf(d[i]));
         }
         return d;
     }
@@ -77,9 +77,9 @@ public class SplitFare {
     private Pair[] getPairs(String[] names, double[] difference) {
 
         Pair[] par  = new Pair[difference.length];
-        Log.d("par length",String.valueOf(par.length));
+      //  Log.d("par length",String.valueOf(par.length));
         for (int i = 0; i < NumOfPpl; i++) {
-            Log.d("name pairs", names[i]);
+        //    Log.d("name pairs", names[i]);
             par[i] = new Pair(names[i],difference[i]);
         }
         return par;

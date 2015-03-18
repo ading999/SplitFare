@@ -76,7 +76,7 @@ public class EditPersonsFragment extends Fragment {
         final View rootView = (View) inflater.inflate(R.layout.collection_editperson,container,false);
         arg = getArguments();
         CollectionID = arg.getInt("CollectionID");
-        Log.d("EditPersonsFrag collectionID",String.valueOf(CollectionID));
+       // Log.d("EditPersonsFrag collectionID",String.valueOf(CollectionID));
         TextView finishperson = (TextView) rootView.findViewById(R.id.finishperson);
         TextView backperson = (TextView) rootView.findViewById(R.id.backperson);
         lv = (ListView) rootView.findViewById(R.id.personslist);
@@ -87,7 +87,7 @@ public class EditPersonsFragment extends Fragment {
 
         }
         catch(SQLException e){
-            Log.d("Add person exception",e.toString());
+          //  Log.d("Add person exception",e.toString());
         }
         List<Person> c = BData.getAllPersons(CollectionID);
         if(c!=null){
@@ -104,7 +104,7 @@ public class EditPersonsFragment extends Fragment {
                 }
                 CollectionOverviewFragment collectionOverviewFrag = new CollectionOverviewFragment();
                 collectionOverviewFrag.setArguments(arg);
-                Log.d("Bundle collectionid editPersons",String.valueOf(CollectionID));
+            //    Log.d("Bundle collectionid editPersons",String.valueOf(CollectionID));
                 InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 input.hideSoftInputFromWindow(rootView.getWindowToken(),0);
                 getFragmentManager().beginTransaction()

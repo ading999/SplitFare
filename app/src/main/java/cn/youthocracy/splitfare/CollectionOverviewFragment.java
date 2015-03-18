@@ -97,12 +97,12 @@ public class CollectionOverviewFragment extends Fragment {
         FareCollection f = BData.getCollection(CollectionID);
             title.setText(f.getCollectionName());
             if(c!=null){
-                Log.d("collection overview c is empty","xxx");
+         //       Log.d("collection overview c is empty","xxx");
 
                 updateListView(c);}
         }
         catch(SQLException e){
-            Log.d("overview sql exception",e.toString());
+         //   Log.d("overview sql exception",e.toString());
         }
 
         total.setText("Total: $"+BData.getCollectionTotal(CollectionID));
@@ -197,7 +197,7 @@ public class CollectionOverviewFragment extends Fragment {
             BillAdapter comadp = new BillAdapter(getActivity(), R.layout.bill_item, com);
             lv01.setAdapter(comadp);
             for (Bill l : rs) {
-                                   Log.d("Desc",l.getBillDescription());
+                                 //  Log.d("Desc",l.getBillDescription());
                                     com.add(l);
             }
 

@@ -10,27 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +36,7 @@ public class BillAdapter extends ArrayAdapter<Bill> {
         //Get the current alert object
         final Bill al = getItem(position);
 
-        Log.d("position", String.valueOf(al.getCollectionID()));
+     //   Log.d("position", String.valueOf(al.getCollectionID()));
 
         //Inflate the view
         if (convertView == null) {
@@ -80,7 +63,7 @@ public class BillAdapter extends ArrayAdapter<Bill> {
             BData.open();
 
         }catch(SQLException e){
-            Log.d("BillAdapter sql error",e.toString());
+          //  Log.d("BillAdapter sql error",e.toString());
         }
         Payer.setText("Paid by: "+BData.getPayerName(al.getPayerID()));
 
@@ -94,7 +77,8 @@ public class BillAdapter extends ArrayAdapter<Bill> {
                 BData.removeBill(al.getBillID(),al.getCollectionID());
                 Bundle arg = new Bundle();
                 arg.putInt("CollectionID",al.getCollectionID());
-                Log.d("Bill adapter collectionid",String.valueOf(al.getCollectionID()));
+
+             //   Log.d("Bill adapter collectionid",String.valueOf(al.getCollectionID()));
                 CollectionOverviewFragment overviewFragment = new CollectionOverviewFragment();
                 overviewFragment.setArguments(arg);
                 FragmentActivity activity = (FragmentActivity)(getContext());
